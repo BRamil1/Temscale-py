@@ -30,7 +30,7 @@ class Temscale:
         else:
             raise (TypeError, "temperature value is not correct")
 
-    def to_c(self) -> None:
+    def to_celsius(self) -> None:
         """converts temperature to Celsius"""
 
         match self.temperature_type:
@@ -46,7 +46,7 @@ class Temscale:
                 raise (temerror.TemperatureError,
                        f"the value '{self.temperature_type}' is not a temperature type")
 
-    def to_k(self) -> None:
+    def to_kelvin(self) -> None:
         """converts temperature to Kelvin"""
 
         match self.temperature_type:
@@ -62,7 +62,7 @@ class Temscale:
                 raise (temerror.TemperatureError,
                        f"the value '{self.temperature_type}' is not a temperature type")
 
-    def to_f(self) -> None:
+    def to_fahrenheit(self) -> None:
         """converts temperature to Fahrenheit"""
 
         match self.temperature_type:
