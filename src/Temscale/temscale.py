@@ -1,4 +1,4 @@
-from Temscale import temerror
+from src.Temscale import temerror
 
 
 class Temscale:

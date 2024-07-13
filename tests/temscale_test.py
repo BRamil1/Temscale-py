@@ -1,5 +1,5 @@
 import unittest
-from Temscale import temscale
+from src.Temscale import temscale
 
 
 class TestTemscale(unittest.TestCase):
