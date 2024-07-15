@@ -50,6 +50,18 @@ class TestTemscale(unittest.TestCase):
         self.assertEqual(tem_c.get_value(), 212.0)
         self.assertEqual(tem_k.get_value(), -279.67)
 
+    def test_to_rankine(self):
+        tem_c = temscale.Temscale(-273.15, "C")
+        tem_k = temscale.Temscale(255.37 , "K")
+        tem_f = temscale.Temscale(0, "F")
+        tem_c.to_rankine()
+        tem_k.to_rankine()
+        tem_f.to_rankine()
+        tem_c.to_celsius()
+        self.assertEqual(tem_c.get_value(), -273.15)
+        self.assertEqual(tem_k.get_value(), 0)
+        self.assertEqual(tem_f.get_value(), 459.67)
+
 
 if __name__ == '__main__':
     unittest.main()
