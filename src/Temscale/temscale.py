@@ -11,6 +11,26 @@ class Temscale:
         self.set_value(new_temperature_value)
         self.set_type(new_temperature_type)
 
+    def __eq__(self, other) -> int:
+        """
+        translate into Kelvin and compare the value
+        :type other: Temscale
+        """
+        if isinstance(other, Temscale):
+            if self.temperature_type == "K":
+                if other.temperature_type == "K":
+                    return self.temperature_value == other.temperature_value
+                else:
+                    other.to_kelvin()
+                    return self.temperature_value == other.temperature_value
+            else:
+                self.to_kelvin()
+                if other.temperature_type == "K":
+                    return self.temperature_value == other.temperature_value
+                else:
+                    other.to_kelvin()
+                    return self.temperature_value == other.temperature_value
+
     def get_value(self) -> float:
         """get the temperature value"""
 

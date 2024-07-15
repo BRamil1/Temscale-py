@@ -10,6 +10,13 @@ class TestTemscale(unittest.TestCase):
         self.assertEqual(tem.get_value(), 100)
         self.assertEqual(tem.get_type(), "C")
 
+    def test_eq(self):
+        tem1 = temscale.Temscale(100, "C")
+        tem2 = temscale.Temscale(50, "F")
+        self.assertFalse(tem1 == tem2)
+        tem1 = temscale.Temscale(10, "C")
+        self.assertTrue(tem1 == tem2)
+
     def test_set_value(self):
         tem = temscale.Temscale(100, "C")
         self.assertEqual(tem.get_value(), 100)
