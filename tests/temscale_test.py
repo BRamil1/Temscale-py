@@ -1,9 +1,9 @@
 import unittest
-from src.Temscale import temscale
+from temscale import temscale
 
 
 class TestTemscale(unittest.TestCase):
-    """test of Temscale class functions"""
+    """test of temscale class functions"""
 
     def test_constructor(self):
         tem = temscale.Temscale(100, "C")
