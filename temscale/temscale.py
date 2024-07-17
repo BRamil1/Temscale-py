@@ -56,6 +56,98 @@ class Temscale:
 
         return result
 
+    def __lt__(self, other) -> bool:
+        """
+        converts to Kelvin and checks if the temperature is less than X, returns True if the temperature is less,
+        otherwise False.
+        :type other: Temscale
+        """
+        self_type = self.temperature_type
+        other_type = other.temperature_type
+
+        if self.temperature_type != "K":
+            self.to_kelvin()
+        if other.temperature_type != "K":
+            other.to_kelvin()
+
+        result = self.temperature_value < other.temperature_value
+
+        if self.temperature_type == "K":
+            self.convert(self_type)
+        if other.temperature_type == "K":
+            other.convert(other_type)
+
+        return result
+
+    def __gt__(self, other) -> bool:
+        """
+        converts to Kelvin and checks if the temperature is greater than X, returns True if the temperature is greater,
+        otherwise False.
+        :type other: Temscale
+        """
+        self_type = self.temperature_type
+        other_type = other.temperature_type
+
+        if self.temperature_type != "K":
+            self.to_kelvin()
+        if other.temperature_type != "K":
+            other.to_kelvin()
+
+        result = self.temperature_value > other.temperature_value
+
+        if self.temperature_type == "K":
+            self.convert(self_type)
+        if other.temperature_type == "K":
+            other.convert(other_type)
+
+        return result
+
+    def __le__(self, other) -> bool:
+        """
+        converts to Kelvin and checks if the temperature is greater than or equal to X,
+        returns True if the temperature is greater than or equal to X, otherwise False.
+        :type other: Temscale
+        """
+        self_type = self.temperature_type
+        other_type = other.temperature_type
+
+        if self.temperature_type != "K":
+            self.to_kelvin()
+        if other.temperature_type != "K":
+            other.to_kelvin()
+
+        result = self.temperature_value <= other.temperature_value
+
+        if self.temperature_type == "K":
+            self.convert(self_type)
+        if other.temperature_type == "K":
+            other.convert(other_type)
+
+        return result
+
+    def __ge__(self, other) -> bool:
+        """
+        converts to Kelvin and checks if the temperature is less than or equal to X,
+        returns True if the temperature is less than or equal to X, otherwise False.
+        :type other: Temscale
+        """
+        self_type = self.temperature_type
+        other_type = other.temperature_type
+
+        if self.temperature_type != "K":
+            self.to_kelvin()
+        if other.temperature_type != "K":
+            other.to_kelvin()
+
+        result = self.temperature_value >= other.temperature_value
+
+        if self.temperature_type == "K":
+            self.convert(self_type)
+        if other.temperature_type == "K":
+            other.convert(other_type)
+
+        return result
+
     def get_value(self) -> float:
         """get the temperature value"""
 
@@ -70,16 +162,18 @@ class Temscale:
         self.temperature_value = new_temperature_value
 
     def set_type(self, new_temperature_type: str) -> None:
-        if new_temperature_type in self.temperature_type_list:
-            self.temperature_type = new_temperature_type
-            if self.temperature_type == "C":
+        match new_temperature_type:
+            case "C":
+                self.temperature_type = new_temperature_type
                 self.temperature_type_name = "Celsius"
-            elif self.temperature_type == "K":
+            case "K":
+                self.temperature_type = new_temperature_type
                 self.temperature_type_name = "Kelvin"
-            elif self.temperature_type == "F":
+            case "F":
+                self.temperature_type = new_temperature_type
                 self.temperature_type_name = "Fahrenheit"
-        else:
-            raise (TypeError, "temperature value is not correct")
+            case _:
+                raise (TypeError, "temperature value is not correct")
 
     def to_celsius(self) -> None:
         """converts temperature to Celsius"""
@@ -130,14 +224,17 @@ class Temscale:
                        f"the value '{self.temperature_type}' is not a temperature type")
 
     def convert(self, new_type) -> None:
-        if self.temperature_type == new_type:
-            raise ValueError(f"the value is already '{new_type}'")
-        elif new_type == "C":
-            self.to_celsius()
-        elif new_type == "F":
-            self.to_fahrenheit()
-        elif new_type == "K":
-            self.to_kelvin()
+        match new_type:
+            case self.temperature_type:
+                raise ValueError(f"the value is already '{new_type}'")
+            case "C":
+                self.to_celsius()
+            case "K":
+                self.to_kelvin()
+            case "F":
+                self.to_fahrenheit()
+            case _:
+                raise ValueError(f"The '{new_type}' is not a temperature scale type")
 
 
 def to_tuple(tem: Temscale) -> tuple:

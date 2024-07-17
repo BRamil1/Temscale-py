@@ -17,6 +17,45 @@ class TestTemscale(unittest.TestCase):
         tem1 = temscale.Temscale(10, "C")
         self.assertTrue(tem1 == tem2)
 
+    def test_ne(self):
+        tem1 = temscale.Temscale(100, "C")
+        tem2 = temscale.Temscale(50, "F")
+        self.assertTrue(tem1 != tem2)
+        tem1 = temscale.Temscale(10, "C")
+        self.assertFalse(tem1 != tem2)
+
+    def test_lt(self):
+        tem1 = temscale.Temscale(100, "C")
+        tem2 = temscale.Temscale(50, "C")
+        self.assertFalse(tem1 < tem2)
+        tem1 = temscale.Temscale(10, "C")
+        self.assertTrue(tem1 < tem2)
+
+    def test_gt(self):
+        tem1 = temscale.Temscale(100, "C")
+        tem2 = temscale.Temscale(50, "C")
+        self.assertTrue(tem1 > tem2)
+        tem1 = temscale.Temscale(10, "C")
+        self.assertFalse(tem1 > tem2)
+
+    def test_le(self):
+        tem1 = temscale.Temscale(100, "C")
+        tem2 = temscale.Temscale(50, "C")
+        self.assertFalse(tem1 <= tem2)
+        tem1 = temscale.Temscale(10, "C")
+        self.assertTrue(tem1 <= tem2)
+        tem1 = temscale.Temscale(50, "C")
+        self.assertTrue(tem1 <= tem2)
+
+    def test_ge(self):
+        tem1 = temscale.Temscale(100, "C")
+        tem2 = temscale.Temscale(50, "C")
+        self.assertTrue(tem1 >= tem2)
+        tem1 = temscale.Temscale(10, "C")
+        self.assertFalse(tem1 >= tem2)
+        tem1 = temscale.Temscale(50, "C")
+        self.assertTrue(tem1 >= tem2)
+
     def test_set_value(self):
         tem = temscale.Temscale(100, "C")
         self.assertEqual(tem.get_value(), 100)
@@ -56,6 +95,15 @@ class TestTemscale(unittest.TestCase):
         tem_k.to_fahrenheit()
         self.assertEqual(tem_c.get_value(), 212.0)
         self.assertEqual(tem_k.get_value(), -279.67)
+
+    def test_to_convert(self):
+        tem = temscale.Temscale(100, "C")
+        tem.convert("F")
+        self.assertEqual(round(tem.get_value(), 2), 212.0)
+        tem.convert("K")
+        self.assertEqual(round(tem.get_value(), 2), 373.15)
+        tem.convert("C")
+        self.assertEqual(round(tem.get_value(), 2), 100)
 
 
 if __name__ == '__main__':
