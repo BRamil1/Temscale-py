@@ -16,8 +16,8 @@ class Temscale:
             F - Fahrenheit
         """
 
-        self.set_value(new_temperature_value)
-        self.set_type(new_temperature_type)
+        self.value(new_temperature_value)
+        self.type(new_temperature_type)
 
     def __eq__(self, other) -> bool:
         """
@@ -119,22 +119,26 @@ class Temscale:
 
         return result
 
-    def get_value(self) -> float:
+    @property
+    def value(self) -> float:
         """get the temperature value"""
 
         return self.temperature_value
 
-    def get_type(self) -> str:
+    @property
+    def type(self) -> str:
         """get the temperature type"""
 
         return self.temperature_type
 
-    def set_value(self, new_temperature_value: float) -> None:
+    @value.setter
+    def value(self, new_temperature_value: float) -> None:
         """set the temperature value"""
 
         self.temperature_value = new_temperature_value
 
-    def set_type(self, new_temperature_type: str) -> str:
+    @type.setter
+    def type(self, new_temperature_type: str) -> None:
         """sets the type of temperature scale
             takes a type in the format set_type(type: str), where type is:
                 C - Celsius
@@ -144,9 +148,7 @@ class Temscale:
         """
 
         if new_temperature_type in self.temperature_type_list:
-            old_type = self.temperature_type
             self.temperature_type = new_temperature_type
-            return old_type
         else:
             raise (TypeError, "temperature type is not correct")
 
@@ -157,7 +159,7 @@ class Temscale:
             self.temperature_value -= 273.15
         elif self.temperature_type == "F":
             self.temperature_value = (self.temperature_value - 32) / 1.8
-        return self.set_type("C")
+        return self.type("C")
 
     def to_kelvin(self) -> str:
         """converts temperature to Kelvin, returns the old type"""
@@ -166,7 +168,7 @@ class Temscale:
             self.temperature_value += 273.15
         elif self.temperature_type == "F":
             self.temperature_value = (self.temperature_value + 459.67) / 1.8
-        return self.set_type("K")
+        return self.type("K")
 
     def to_fahrenheit(self) -> str:
         """converts temperature to Fahrenheit, returns the old type"""
@@ -175,7 +177,7 @@ class Temscale:
             self.temperature_value = (self.temperature_value * 1.8) + 32
         elif self.temperature_type == "K":
             self.temperature_value = (self.temperature_value * 1.8) - 459.67
-        return self.set_type("F")
+        return self.type("F")
 
     def convert(self, new_type) -> str:
         """
@@ -198,7 +200,7 @@ class Temscale:
 
 
 def to_tuple(tem: Temscale) -> tuple:
-    return tem.get_value(), tem.temperature_type
+    return tem.value, tem.temperature_type
 
 
 def from_tuple(t: tuple) -> Temscale:
@@ -206,7 +208,7 @@ def from_tuple(t: tuple) -> Temscale:
 
 
 def to_list(tem: Temscale) -> list:
-    return [tem.get_value(), tem.temperature_type]
+    return [tem.value, tem.temperature_type]
 
 
 def from_list(ls: list) -> Temscale:
@@ -214,7 +216,7 @@ def from_list(ls: list) -> Temscale:
 
 
 def to_dict(tem: Temscale) -> dict:
-    return {"temperature_value": tem.get_value(), "temperature_type": tem.temperature_type}
+    return {"temperature_value": tem.value, "temperature_type": tem.temperature_type}
 
 
 def from_dict(d: dict) -> Temscale:
