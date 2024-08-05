@@ -3,9 +3,9 @@ class Temscale:
     main class that describes the temperature and functions for temperature output and conversion
     """
 
-    temperature_value = 0
-    temperature_type = None
-    temperature_type_list = ["C", "K", "F"]
+    temperature_value: float | int = 0
+    temperature_type: str = ""
+    temperature_type_list: list[str] = ["C", "K", "F"]
 
     def __init__(self, new_temperature_value: float, new_temperature_type: str) -> None:
         """
@@ -119,7 +119,7 @@ class Temscale:
 
         return result
 
-    def get_value(self) -> float:
+    def get_value(self) -> float | int:
         """get the temperature value"""
 
         return self.temperature_value
@@ -129,7 +129,7 @@ class Temscale:
 
         return self.temperature_type
 
-    def set_value(self, new_temperature_value: float) -> None:
+    def set_value(self, new_temperature_value: float | int) -> None:
         """set the temperature value"""
 
         self.temperature_value = new_temperature_value
@@ -148,7 +148,7 @@ class Temscale:
             self.temperature_type = new_temperature_type
             return old_type
         else:
-            raise (TypeError, "temperature type is not correct")
+            raise (ValueError, "temperature type is not correct")
 
     def to_celsius(self) -> str:
         """converts temperature to Celsius, returns the old type"""
